@@ -1,0 +1,63 @@
+<h1>Expense Tracker</h1>
+
+<form action="/sort/year" method="post">
+  <button id="year_filter" class="<%= session[:year_btn_class] %>" type="submit">By Year</button>
+</form>
+
+<form action="/sort/month" method="post">
+  <button id="month_filter" class="<%= session[:month_btn_class] %>"type="submit">By Month</button>
+</form>
+
+
+<% session[:timeperiods].each do |timeperiod| %>
+<% session[:total] ||= 0 %>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Payee</th>
+      <th>Amount</th>
+    </tr>
+
+    <% session[:expenses].each do |transaction|%>
+      <% if match_year_or_month?(timeperiod, transaction) %>
+        <% session[:total] += transaction[:amount] %>
+        <tr>
+          <td><%= transaction[:date] %></td>
+          <td><%= transaction[:payee] %></td>
+          <td>$<%= sprintf('%.2f', transaction[:amount]) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td class="total">Total: $<%= sprintf('%.2f', session.delete(:total)) %></td>
+    </tr>
+  </table>
+<% end %>
+
+<form action="/add-transaction" method="post">
+  <fieldset>
+
+    <div class="data-input">
+      <label>Date</label>
+      <input size="2" maxlength="2" name="month" placeholder="XX" value="<%= params[:month] %>"/>
+      <input size="2" maxlength="2" name="day" placeholder="XX" value="<%= params[:day] %>"/>
+      <input size="4" maxlength="4" name="year" placeholder="XXXX" value="<%= params[:year] %>"/>
+    </div>
+
+    <div class="data-input">
+      <label>Payee</label>
+      <input name="payee" placeholder="i.e. costco" value="<%= params[:payee] %>"/> 
+    </div>
+
+    <div class="data-input">
+      <label>Amount</label>
+      <input name="amount" placeholder="XX.XX" value="<%= params[:amount] %>"/>
+    </div>
+
+    <button id="add_expense_btn" type="submit">Add Transaction</button>
+
+  </fieldset>
+</form>

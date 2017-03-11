@@ -1,0 +1,60 @@
+body {
+  font-family:sans-serif;
+  padding: 2%;
+}
+
+label {
+  display:block;
+}
+
+table {
+  width:100%;
+  margin-bottom:2%;
+  border: 2px #999 solid;
+}
+
+th {
+  width:33.33%;
+  border: 1px #999 solid;
+  text-align: left
+}
+
+td {
+  border: 1px #999 solid;
+}
+
+.data-input {
+  padding: 1%;
+}
+
+.active {
+  background-color: #ccc;
+}
+
+.error {
+  background-color: #ffeaea;
+  padding:1%;
+}
+
+.inactive {
+  background-color: #fff;
+}
+
+.message {
+  background-color: #e4ffe0;
+  padding: 1%;
+}
+
+.total {
+  text-align: right;
+}
+
+#add_expense_btn {
+  margin: 1%;
+  background-color: #fff;
+}
+
+#year_filter, #month_filter  {
+  margin:0% 1% 1% 0%;
+  width:100px;
+}
